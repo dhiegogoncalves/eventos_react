@@ -7,16 +7,17 @@ import './login.css';
 export default function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [msgTipo, setMsgTipo] = useState();
 
   function logar() {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(res => {
-        alert('Usuário logado');
+        setMsgTipo('sucesso');
       })
       .catch(err => {
-        alert(err);
+        setMsgTipo('erro');
       });
   }
 
@@ -54,17 +55,20 @@ export default function Login() {
         </button>
 
         <div className="msg-login text-white text-center my-5">
-          <span>
-            <strong>WoW!</strong> Você está conectado!
-          </span>
-          <br />
-          <span>
-            <strong>Ops!</strong> Verifique se a senha ou usuário estão
-            corretos!
-          </span>
+          {msgTipo === 'sucesso' && (
+            <span>
+              <strong>WoW!</strong> Você está conectado!
+            </span>
+          )}
+          {msgTipo === 'erro' && (
+            <span>
+              <strong>Ops!</strong> Verifique se a senha ou usuário estão
+              corretos!
+            </span>
+          )}
         </div>
 
-        <div className="opcoes-login mt-5">
+        <div className="opcoes-login mt-5 text-center">
           <a href="#" className="mx-2">
             Recuperar Senha
           </a>
