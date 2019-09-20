@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import './navbar.css';
 
 export default function Navbar() {
+  const dispatch = useDispatch();
+
   return (
     <nav className="navbar navbar-expand-lg">
       <span className="navbar-brand text-white font-weight-bold">Eventos</span>
@@ -25,16 +28,41 @@ export default function Navbar() {
               Home
             </Link>
           </li>
-          <li className="nav-item">
-            <Link to="/novo-usuario" className="nav-link">
-              Cadastrar
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/login" className="nav-link">
-              Login
-            </Link>
-          </li>
+          {useSelector(state => !state.usuarioLogado) ? (
+            <>
+              <li className="nav-item">
+                <Link to="/novo-usuario" className="nav-link">
+                  Cadastrar
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/login" className="nav-link">
+                  Login
+                </Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li className="nav-item">
+                <Link to="#" className="nav-link">
+                  Publicar Evento
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="#" className="nav-link">
+                  Meus Eventos
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  onClick={() => dispatch({ type: 'LOG_OUT' })}
+                >
+                  Sair
+                </Link>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </nav>
