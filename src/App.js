@@ -6,6 +6,7 @@ import store from './store';
 import Login from './pages/login';
 import NovoUsuario from './pages/usuario-novo';
 import Home from './pages/home';
+import UsuarioRecuperarSenha from './pages/usuario-recuperar-senha';
 
 function App() {
   return (
@@ -14,6 +15,10 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/novo-usuario" component={NovoUsuario} />
+        <Route
+          path="/recuperar-senha-usuario"
+          component={UsuarioRecuperarSenha}
+        />
       </BrowserRouter>
     </Provider>
   );

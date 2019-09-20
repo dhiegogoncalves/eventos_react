@@ -9,7 +9,9 @@ export default function Navbar() {
 
   return (
     <nav className="navbar navbar-expand-lg">
-      <span className="navbar-brand text-white font-weight-bold">Eventos</span>
+      <span className="navbar-brand text-white font-weight-bold">
+        <i class="fas fa-calendar-alt text-white fa-2x"></i>
+      </span>
       <button
         className="navbar-toggler"
         type="button"
