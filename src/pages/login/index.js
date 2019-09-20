@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import firebase from '../../config/firebase';
 import 'firebase/auth';
 
@@ -73,9 +74,9 @@ export default function Login() {
             Recuperar Senha
           </a>
           <span className="text-white">|</span>
-          <a href="#" className="mx-2">
+          <Link to="novo-usuario" href="#" className="mx-2">
             Quero Cadastrar
-          </a>
+          </Link>
         </div>
       </form>
     </div>

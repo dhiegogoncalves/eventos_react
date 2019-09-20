@@ -60,13 +60,13 @@ export default function NovoUsuario() {
         <input
           onChange={e => setEmail(e.target.value)}
           type="email"
-          className="form-control my-2"
+          className="form-control my-2 shadow-none"
           placeholder="Email"
         />
         <input
           onChange={e => setPassword(e.target.value)}
           type="password"
-          className="form-control my-2"
+          className="form-control my-2 shadow-none"
           placeholder="Senha"
         />
 
