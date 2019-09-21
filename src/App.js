@@ -6,7 +6,8 @@ import store from './store';
 import Login from './pages/login';
 import NovoUsuario from './pages/usuario-novo';
 import Home from './pages/home';
-import UsuarioRecuperarSenha from './pages/usuario-recuperar-senha';
+import RecuperarSenhaUsuario from './pages/usuario-recuperar-senha';
+import CadastroEvento from './pages/evento-cadastro';
 
 function App() {
   return (
@@ -17,8 +18,9 @@ function App() {
         <Route path="/novo-usuario" component={NovoUsuario} />
         <Route
           path="/recuperar-senha-usuario"
-          component={UsuarioRecuperarSenha}
+          component={RecuperarSenhaUsuario}
         />
+        <Route path="/cadastro-evento" component={CadastroEvento} />
       </BrowserRouter>
     </Provider>
   );

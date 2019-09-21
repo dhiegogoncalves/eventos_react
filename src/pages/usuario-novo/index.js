@@ -76,7 +76,7 @@ export default function NovoUsuario() {
           />
 
           {carregando ? (
-            <div className="spinner-border text-danger" role="status">
+            <div className="spinner-border text-danger mx-auto" role="status">
               <span className="sr-only">Loading...</span>
             </div>
           ) : (

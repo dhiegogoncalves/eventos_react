@@ -46,7 +46,7 @@ export default function Navbar() {
           ) : (
             <>
               <li className="nav-item">
-                <Link to="#" className="nav-link">
+                <Link to="cadastro-evento" className="nav-link">
                   Publicar Evento
                 </Link>
               </li>
