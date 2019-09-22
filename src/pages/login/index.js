@@ -34,7 +34,7 @@ export default function Login() {
 
       <form className="form-signin mx-auto">
         <div className="text-center mb-4">
-          <i class="fas fa-calendar-alt text-white my-2 fa-4x"></i>
+          <i className="fas fa-calendar-alt text-white my-2 fa-4x"></i>
           <h1 className="h3 mb-3 font-weight-normal text-white font-weight-bold">
             Login
           </h1>
@@ -83,7 +83,7 @@ export default function Login() {
             Recuperar Senha
           </Link>
           <span className="text-white">|</span>
-          <Link to="#" className="mx-2">
+          <Link to="/novo-usuario" className="mx-2">
             Quero Cadastrar
           </Link>
         </div>

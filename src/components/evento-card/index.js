@@ -13,7 +13,7 @@ export default function EventoCard({ evento }) {
       .ref(`imagens/${evento.foto}`)
       .getDownloadURL()
       .then(res => setUrlImagem(res));
-  }, [evento.foto]);
+  }, [evento.foto, urlImagem]);
 
   return (
     <div className="col-lg-2 col-md-3 col-sm-12 border m-4">
@@ -30,7 +30,7 @@ export default function EventoCard({ evento }) {
         <div className="row rodape-card d-flex align-items-center">
           <div className="col-6">
             <Link
-              to={`evento-detalhes/${evento.id}`}
+              to={`/evento-detalhes/${evento.id}`}
               className="btn btn-sm btn-detalhes"
             >
               + detalhes

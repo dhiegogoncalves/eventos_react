@@ -14,6 +14,7 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <Route exact path="/" component={Home} />
+        <Route path="/eventos/:param" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/novo-usuario" component={NovoUsuario} />
         <Route

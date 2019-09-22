@@ -20,7 +20,10 @@ export default function CadastroEvento() {
   const storage = firebase.storage();
   const db = firebase.firestore();
 
-  function cadastrar() {
+  function cadastrar(e) {
+    e.preventDefault();
+    const form = e.target;
+
     setMsgTipo(null);
     setCarregando(true);
     let nomeArquivo = '';
@@ -50,6 +53,8 @@ export default function CadastroEvento() {
               criacao: new Date()
             })
             .then(() => {
+              form.reset();
+              limparCampos();
               setMsgTipo('sucesso');
               setCarregando(false);
             });
@@ -60,6 +65,15 @@ export default function CadastroEvento() {
     }
   }
 
+  function limparCampos() {
+    setTitulo('');
+    setTipo('');
+    setDetalhes('');
+    setData('');
+    setHora('');
+    setFoto('');
+  }
+
   return (
     <>
       <Navbar />
@@ -68,7 +82,7 @@ export default function CadastroEvento() {
           <h3 className="mx-auto font-weight-bold">Novo Evento</h3>
         </div>
 
-        <form>
+        <form onSubmit={cadastrar}>
           <div className="form-group">
             <label>Título:</label>
             <input
@@ -83,14 +97,15 @@ export default function CadastroEvento() {
             <select
               onChange={e => setTipo(e.target.value)}
               className="form-control"
+              defaultValue=""
             >
-              <option disabled selected value>
+              <option disabled value="">
                 -- Selecione um tipo --
               </option>
-              <option>Festa</option>
-              <option>Teatro</option>
-              <option>Show</option>
-              <option>Evento</option>
+              <option value="Festa">Festa</option>
+              <option value="Teatro">Teatro</option>
+              <option value="Show">Show</option>
+              <option value="Evento">Evento</option>
             </select>
           </div>
 
@@ -141,8 +156,7 @@ export default function CadastroEvento() {
               </div>
             ) : (
               <button
-                onClick={cadastrar}
-                type="button"
+                type="submit"
                 className="btn btn-lg btn-block mt-3 mb-5 btn-cadastro"
               >
                 Publicar Evento

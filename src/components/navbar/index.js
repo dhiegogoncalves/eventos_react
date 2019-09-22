@@ -46,17 +46,18 @@ export default function Navbar() {
           ) : (
             <>
               <li className="nav-item">
-                <Link to="cadastro-evento" className="nav-link">
+                <Link to="/cadastro-evento" className="nav-link">
                   Publicar Evento
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="#" className="nav-link">
+                <Link to="/eventos/meus" className="nav-link">
                   Meus Eventos
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
+                  to="#"
                   className="nav-link"
                   onClick={() => dispatch({ type: 'LOG_OUT' })}
                 >
