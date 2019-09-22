@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import firebase from '../../config/firebase';
 import 'firebase/auth';
 import Navbar from '../../components/navbar';

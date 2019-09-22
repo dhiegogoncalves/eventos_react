@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -10,7 +10,7 @@ export default function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg">
       <span className="navbar-brand text-white font-weight-bold">
-        <i class="fas fa-calendar-alt text-white fa-2x"></i>
+        <i className="fas fa-calendar-alt text-white fa-2x"></i>
       </span>
       <button
         className="navbar-toggler"

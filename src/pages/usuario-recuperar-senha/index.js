@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import firebase from '../../config/firebase';
 import 'firebase/auth';
 import Navbar from '../../components/navbar';
@@ -10,8 +8,6 @@ import './usuario-recuperar-senha.css';
 export default function UsuarioRecuperarSenha() {
   const [email, setEmail] = useState();
   const [msg, setMsg] = useState();
-
-  const dispatch = useDispatch();
 
   function recuperarSenha() {
     firebase
