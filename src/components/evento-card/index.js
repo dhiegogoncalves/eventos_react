@@ -30,7 +30,7 @@ export default function EventoCard({ evento }) {
         <div className="row rodape-card d-flex align-items-center">
           <div className="col-6">
             <Link
-              to={`/evento-detalhes/${evento.id}`}
+              to={`/detalhes-evento/${evento.id}`}
               className="btn btn-sm btn-detalhes"
             >
               + detalhes

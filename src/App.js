@@ -8,6 +8,7 @@ import NovoUsuario from './pages/usuario-novo';
 import Home from './pages/home';
 import RecuperarSenhaUsuario from './pages/usuario-recuperar-senha';
 import CadastroEvento from './pages/evento-cadastro';
+import DetalhesEvento from './pages/evento-detalhes';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           component={RecuperarSenhaUsuario}
         />
         <Route path="/cadastro-evento" component={CadastroEvento} />
+        <Route path="/detalhes-evento/:param" component={DetalhesEvento} />
       </BrowserRouter>
     </Provider>
   );
