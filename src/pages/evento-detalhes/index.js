@@ -21,6 +21,13 @@ export default function DetalhesEvento({ match }) {
       .get()
       .then(res => {
         setEvento(res.data());
+
+        firebase
+          .firestore()
+          .collection('eventos')
+          .doc(match.params.id)
+          .update('visualizacoes', res.data().visualizacoes + 1);
+
         firebase
           .storage()
           .ref(`imagens/${res.data().foto}`)
@@ -30,7 +37,7 @@ export default function DetalhesEvento({ match }) {
             setCarregando(false);
           });
       });
-  }, [match.params.id, evento]);
+  }, [match.params.id]);
 
   return (
     <>
@@ -48,7 +55,7 @@ export default function DetalhesEvento({ match }) {
               <img src={urlImg} className="img-banner" alt="Banner" />
               <div className="col-12 text-right mt-1 color-purple">
                 <i className="fas fa-eye"></i>{' '}
-                <span>{evento.visualizacoes}</span>
+                <span>{evento.visualizacoes + 1}</span>
               </div>
               <h3 className="mx-auto mt-5 color-purple">
                 <strong>{evento.titulo}</strong>
