@@ -1,6 +1,11 @@
 .img-banner {
-  width: 60%;
-  max-height: 250px;
+  width: 100%;
+  min-height: 300px;
+  max-height: 350px;
+}
+
+.color-purple {
+  color: #614ea6;
 }
 
 .box-info {
