@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import firebase from '../../config/firebase';
 import 'firebase/auth';
@@ -6,13 +6,14 @@ import Navbar from '../../components/navbar';
 
 import './evento-cadastro.css';
 
-export default function CadastroEvento() {
+export default function CadastroEvento({ match }) {
   const [titulo, setTitulo] = useState();
   const [tipo, setTipo] = useState();
   const [detalhes, setDetalhes] = useState();
   const [data, setData] = useState();
   const [hora, setHora] = useState();
-  const [foto, setFoto] = useState();
+  const [fotoNova, setFotoNova] = useState();
+  const [fotoAtual, setFotoAtual] = useState();
   const [msgTipo, setMsgTipo] = useState();
   const [carregando, setCarregando] = useState();
   const usuarioEmail = useSelector(state => state.usuarioEmail);
@@ -28,16 +29,16 @@ export default function CadastroEvento() {
     setCarregando(true);
     let nomeArquivo = '';
 
-    if (foto) {
-      nomeArquivo = `${foto.name.split('.')[0]}${new Date().getTime()}.${
-        foto.name.split('.')[foto.name.split('.').length - 1]
+    if (fotoNova) {
+      nomeArquivo = `${fotoNova.name.split('.')[0]}${new Date().getTime()}.${
+        fotoNova.name.split('.')[fotoNova.name.split('.').length - 1]
       }`;
     }
 
     try {
       storage
         .ref(`imagens/${nomeArquivo}`)
-        .put(foto)
+        .put(fotoNova)
         .then(() => {
           db.collection('eventos')
             .add({
@@ -65,13 +66,67 @@ export default function CadastroEvento() {
     }
   }
 
+  function atualizar(e) {
+    e.preventDefault();
+
+    setMsgTipo(null);
+    setCarregando(true);
+    let nomeArquivo = '';
+
+    if (fotoNova) {
+      nomeArquivo = `${fotoNova.name.split('.')[0]}${new Date().getTime()}.${
+        fotoNova.name.split('.')[fotoNova.name.split('.').length - 1]
+      }`;
+    }
+
+    try {
+      if (fotoNova) {
+        storage.ref(`imagens/${nomeArquivo}`).put(fotoNova);
+      }
+
+      db.collection('eventos')
+        .doc(match.params.id)
+        .update({
+          titulo: titulo,
+          tipo: tipo,
+          detalhes: detalhes,
+          data: data,
+          hora: hora,
+          foto: fotoNova ? nomeArquivo : fotoAtual
+        })
+        .then(() => {
+          setMsgTipo('sucesso');
+          setCarregando(false);
+        });
+    } catch (error) {
+      setMsgTipo('erro');
+      setCarregando(false);
+    }
+  }
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection('eventos')
+      .doc(match.params.id)
+      .get()
+      .then(res => {
+        setTitulo(res.data().titulo);
+        setTipo(res.data().tipo);
+        setDetalhes(res.data().detalhes);
+        setData(res.data().data);
+        setHora(res.data().hora);
+        setFotoAtual(res.data().foto);
+      });
+  }, [match.params.id]);
+
   function limparCampos() {
     setTitulo('');
     setTipo('');
     setDetalhes('');
     setData('');
     setHora('');
-    setFoto('');
+    setFotoNova('');
   }
 
   return (
@@ -79,14 +134,17 @@ export default function CadastroEvento() {
       <Navbar />
       <div className="col-12 mt-5">
         <div className="row">
-          <h3 className="mx-auto font-weight-bold">Novo Evento</h3>
+          <h3 className="mx-auto font-weight-bold">
+            {match.params.id ? 'Atualizar Evento' : 'Novo Evento'}
+          </h3>
         </div>
 
-        <form onSubmit={cadastrar}>
+        <form onSubmit={match.params.id ? atualizar : cadastrar}>
           <div className="form-group">
             <label>Título:</label>
             <input
               onChange={e => setTitulo(e.target.value)}
+              value={titulo && titulo}
               type="text"
               className="form-control"
             />
@@ -96,6 +154,7 @@ export default function CadastroEvento() {
             <label>Tipo do Evento:</label>
             <select
               onChange={e => setTipo(e.target.value)}
+              value={tipo && tipo}
               className="form-control"
               defaultValue=""
             >
@@ -113,6 +172,7 @@ export default function CadastroEvento() {
             <label>Descrição de Evento:</label>
             <textarea
               onChange={e => setDetalhes(e.target.value)}
+              value={detalhes && detalhes}
               rows="3"
               className="form-control"
             />
@@ -123,6 +183,7 @@ export default function CadastroEvento() {
               <label>Data:</label>
               <input
                 onChange={e => setData(e.target.value)}
+                value={data && data}
                 type="date"
                 className="form-control"
               />
@@ -131,6 +192,7 @@ export default function CadastroEvento() {
               <label>Hora:</label>
               <input
                 onChange={e => setHora(e.target.value)}
+                value={hora && hora}
                 type="time"
                 className="form-control"
               />
@@ -138,9 +200,14 @@ export default function CadastroEvento() {
           </div>
 
           <div className="form-group">
-            <label>Upload da Foto:</label>
+            <label>
+              Upload da Foto:
+              {match.params.id
+                ? ' (Caso queira manter a mesma foto, não precisa escolher uma nova imagem!)'
+                : ''}
+            </label>
             <input
-              onChange={e => setFoto(e.target.files[0])}
+              onChange={e => setFotoNova(e.target.files[0])}
               type="file"
               className="form-control"
             />
@@ -159,7 +226,7 @@ export default function CadastroEvento() {
                 type="submit"
                 className="btn btn-lg btn-block mt-3 mb-5 btn-cadastro"
               >
-                Publicar Evento
+                {match.params.id ? 'Editar Evento' : 'Publicar Evento'}
               </button>
             )}
           </div>

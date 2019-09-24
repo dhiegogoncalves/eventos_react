@@ -23,6 +23,7 @@ function App() {
           component={RecuperarSenhaUsuario}
         />
         <Route path="/cadastro-evento" component={CadastroEvento} />
+        <Route path="/editar-evento/:id" component={CadastroEvento} />
         <Route path="/detalhes-evento/:id" component={DetalhesEvento} />
       </BrowserRouter>
     </Provider>
