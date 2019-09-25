@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './store';
+import { store, persistor } from './store';
+import { PersistGate } from 'redux-persist/es/integration/react';
 
 import Login from './pages/login';
 import NovoUsuario from './pages/usuario-novo';
@@ -13,19 +14,21 @@ import DetalhesEvento from './pages/evento-detalhes';
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <Route exact path="/" component={Home} />
-        <Route path="/eventos/:param" component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/novo-usuario" component={NovoUsuario} />
-        <Route
-          path="/recuperar-senha-usuario"
-          component={RecuperarSenhaUsuario}
-        />
-        <Route path="/cadastro-evento" component={CadastroEvento} />
-        <Route path="/editar-evento/:id" component={CadastroEvento} />
-        <Route path="/detalhes-evento/:id" component={DetalhesEvento} />
-      </BrowserRouter>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <Route exact path="/" component={Home} />
+          <Route path="/eventos/:param" component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/novo-usuario" component={NovoUsuario} />
+          <Route
+            path="/recuperar-senha-usuario"
+            component={RecuperarSenhaUsuario}
+          />
+          <Route path="/cadastro-evento" component={CadastroEvento} />
+          <Route path="/editar-evento/:id" component={CadastroEvento} />
+          <Route path="/detalhes-evento/:id" component={DetalhesEvento} />
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   );
 }
