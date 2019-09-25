@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import firebase from '../../config/firebase';
 import Navbar from '../../components/navbar';
@@ -10,6 +10,7 @@ export default function DetalhesEvento({ match }) {
   const [evento, setEvento] = useState({});
   const [urlImg, setUrlImg] = useState({});
   const [carregando, setCarregando] = useState(true);
+  const [excluido, setExcluido] = useState(false);
 
   const usuarioEmail = useSelector(state => state.usuarioEmail);
 
@@ -39,9 +40,29 @@ export default function DetalhesEvento({ match }) {
       });
   }, [match.params.id]);
 
+  function remover() {
+    firebase
+      .storage()
+      .ref(`imagens/${evento.foto}`)
+      .delete()
+      .then(() => {
+        firebase
+          .firestore()
+          .collection('eventos')
+          .doc(match.params.id)
+          .delete()
+          .then(() => {
+            setExcluido(true);
+          });
+      });
+  }
+
   return (
     <>
       <Navbar />
+
+      {excluido && <Redirect to="/" />}
+
       <div className="container-fluid">
         {carregando ? (
           <div className="row mt-5">
@@ -98,12 +119,22 @@ export default function DetalhesEvento({ match }) {
             </div>
 
             {usuarioEmail === evento.usuario ? (
-              <Link
-                to={`/editar-evento/${match.params.id}`}
-                className="btn-editar"
-              >
-                <i className="fas fa-pen-square fa-3x"></i>
-              </Link>
+              <div>
+                <Link
+                  to={`/editar-evento/${match.params.id}`}
+                  className="btn-editar"
+                >
+                  <i className="fas fa-pen-square fa-3x"></i>
+                </Link>
+
+                <button
+                  onClick={remover}
+                  type="button"
+                  className="btn btn-lg btn-block mt-3 mb-5 btn-cadastro"
+                >
+                  Remover Evento
+                </button>
+              </div>
             ) : (
               ''
             )}

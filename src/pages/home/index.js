@@ -60,7 +60,7 @@ export default function Home({ match }) {
         <h2 className="mx-auto p-5">Eventos Publicados</h2>
         <input
           type="text"
-          className="form-control text-center"
+          className="form-control text-center mx-5"
           placeholder="Pesquisar evento pelo título..."
           onChange={e => setPesquisa(e.target.value)}
         />

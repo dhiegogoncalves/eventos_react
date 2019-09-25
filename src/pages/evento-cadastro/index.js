@@ -105,19 +105,21 @@ export default function CadastroEvento({ match }) {
   }
 
   useEffect(() => {
-    firebase
-      .firestore()
-      .collection('eventos')
-      .doc(match.params.id)
-      .get()
-      .then(res => {
-        setTitulo(res.data().titulo);
-        setTipo(res.data().tipo);
-        setDetalhes(res.data().detalhes);
-        setData(res.data().data);
-        setHora(res.data().hora);
-        setFotoAtual(res.data().foto);
-      });
+    if (match.params.id) {
+      firebase
+        .firestore()
+        .collection('eventos')
+        .doc(match.params.id)
+        .get()
+        .then(res => {
+          setTitulo(res.data().titulo);
+          setTipo(res.data().tipo);
+          setDetalhes(res.data().detalhes);
+          setData(res.data().data);
+          setHora(res.data().hora);
+          setFotoAtual(res.data().foto);
+        });
+    }
   }, [match.params.id]);
 
   function limparCampos() {
