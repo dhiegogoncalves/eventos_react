@@ -15,7 +15,7 @@ Depois de efetuar o download da aplicação, acesse a pasta raiz e execute o com
 npm install
 ```
 
-_Depois renomeie o arquivo .env.example para .env e configure as variáveis do Firebase._
+_Depois renomeie o arquivo `.env.example` para `.env` e configure as variáveis do Firebase._
 
 Por fim para rodar a aplicação, execute o comando:
 
