@@ -9,15 +9,15 @@
 
 ### Iniciar a aplicacão :checkered_flag:
 
-Primeiramente efetue o download das dependências do projeto, executando o comando: <br>
+Primeiramente efetue o download das dependências do projeto, executando o comando:
 
 ```console
 npm install
 ```
 
-Depois edite o arquivo `.env.example` para `.env` e configure as variáveis do Firebase. <br>
+Depois edite o arquivo `.env.example` para `.env` e configure as variáveis do Firebase.
 
-Por fim para rodar a aplicação, execute o comando: <br>
+Por fim para rodar a aplicação, execute o comando:
 
 ```console
 npm start
