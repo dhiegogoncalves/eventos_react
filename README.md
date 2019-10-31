@@ -2,7 +2,10 @@
 
 > Este projeto é uma aplicação de publicação de eventos desenvolvida com React JS + Firebase + Bootstrap.
 
-![Eventos](https://user-images.githubusercontent.com/6399309/65563773-b4f9f500-df18-11e9-9a53-3be37650a3b6.PNG)
+<p align="center">
+    <img src="print.png" alt="drawing" width="600"/>
+    <img src="print2.png" alt="drawing" width="600"/>
+</p>
 
 ### Iniciar a aplicacão :checkered_flag:
 
